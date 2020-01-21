@@ -141,9 +141,9 @@ app.get("/list_view",function(req,res){
 				
 				
 					res.render("list",{Song: songs});
-					Song.deleteMany({}, function (err) {
+					/*Song.deleteMany({}, function (err) {
 						if (err) return handleError(err);
-					  });
+					  });*/
 					}
 				
 
