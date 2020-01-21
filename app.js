@@ -21,7 +21,7 @@ app.use(flash());
 
 // connecting to monggose server
 var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/playlist_app",{ useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/playlist_app",{ useNewUrlParser: true, useUnifiedTopology:true });
 
 // passport authentication setup
 var UserSchema = new mongoose.Schema({
@@ -104,9 +104,11 @@ app.post("/list",function(req,res){
 	    reqd.end(function (resd) {
 			 if (resd.error) throw new Error(resd.error);
 				result= resd.body;
-			    //console.log(result["data"][0]);
+				//console.log(result["data"][0]);
+			     c=0;
+				
 			    result["data"].forEach(function(song){
-					
+					c++;
 					Song.create({
 						   name:   song["title"],
 						   artist: song["artist"]["name"],
@@ -120,10 +122,13 @@ app.post("/list",function(req,res){
 								//console.log(asong);
 							}
 						});
+
+						if(c==(result["data"].length)-1)
+						{res.redirect("/list_view");}
 					
 				})
 			});
-	            res.redirect("/list_view");
+	            
 });
 
 app.get("/list_view",function(req,res){
@@ -133,11 +138,23 @@ app.get("/list_view",function(req,res){
 				console.log("ERROR!");
 				console.log(err);
 			} else {
-				res.render("list",{Song: songs});
-			}
-		});
+				
+				
+					res.render("list",{Song: songs});
+					Song.deleteMany({}, function (err) {
+						if (err) return handleError(err);
+					  });
+					}
+				
+
+					
+
+
+				 })
+		
+		})
 	
-});
+
 
 	app.get("/addplaylist/:id",isLoggedIn,function(req,res){
 		var idp=req.params.id;
