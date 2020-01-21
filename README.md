@@ -1,4 +1,6 @@
-# PLAYLIST-APP
+# PlayPal
+
+![](https://github.com/lugnitdgp/PlayPal/blob/master/public/Demo.gif)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 <br>
 [![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)](https://gitter.im/NIT-dgp/General?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -19,8 +21,15 @@ Kindly follow [contributing.md](contributing.md), if you want to lend a hand in 
 ## Build Setup
 
 ### Requirements:
+
 * NodeJS
+   - [guide](https://nodejs.org/en/download/)
+ 
+* npm
+   - [guide](https://docs.npmjs.com/cli/install)
+ 
 * Mongodb
+  - The database used in the app is MongoDB, so it must be configured on you local machine. Follow the [guide](https://docs.mongodb.com/manual/administration/install-on-linux/) if you dont have MongoDB installed
 
 ```bash
 
@@ -30,7 +39,7 @@ mkdir project
 cd project
 
 #Clone the Repository
-git clone https://github.com/harshith331/PLAYLIST-APP.git
+git clone https://github.com/harshith331/PlayPal.git
 
 #Change directory
 cd PLALIST-APP
