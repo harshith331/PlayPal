@@ -104,7 +104,7 @@ app.post("/list",function(req,res){
 	    reqd.end(function (resd) {
 			 if (resd.error) throw new Error(resd.error);
 				result= resd.body;
-			    //console.log(result["data"][0]);
+				//console.log(result["data"][0]);
 			    result["data"].forEach(function(song){
 					
 					Song.create({
@@ -134,6 +134,11 @@ app.get("/list_view",function(req,res){
 				console.log(err);
 			} else {
 				res.render("list",{Song: songs});
+				// new code addn
+				Song.deleteMany({}, function (err) {
+					if (err) return handleError(err);
+				  });
+                //
 			}
 		});
 	
@@ -296,6 +301,19 @@ app.delete("/playlist/:id",function(req,res){
 			res.redirect("/playlist");
 		}
 	});
+});
+
+
+app.get("/listapi",function(req,res){
+	PlaylistSC.find({}, function(err, playlists){
+	if(err){
+		console.log("ERROR!");
+		console.log(err);
+	} else {
+		res.json(playlists);
+	}
+	});
+
 });
 
 // app.delete("/playlist/:ida/:idb",function(req,res){
