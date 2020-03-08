@@ -90,7 +90,7 @@ app.get("/", function(req, res){
 app.post("/list",function(req,res){
 	song=req.body.Search;
 	//song="light it up";
-	console.log(req.body.Search);
+	console.log(req.body);
 	// console.log(song);
 			reqd.query({
 			"q": "" +song+ ""
@@ -278,20 +278,6 @@ app.get("/playsong/:ida/:idb",function(req,res){
 });
 
 
-	
-// app.get("/playlistCV",function(req,res){
-		
-// 	Playlist.find({}, function(err, songs){
-// 		if(err){
-// 			console.log("ERROR!");
-// 			console.log(err);
-// 		} else {
-// 			res.render("playlist",{Song: songs});
-// 		}
-// 		});
-	
-// });
-
 app.delete("/playlist/:id",function(req,res){
 	PlaylistSC.findByIdAndRemove(req.params.id,function(err){
 		if(err){
@@ -310,10 +296,40 @@ app.get("/listapi",function(req,res){
 		console.log("ERROR!");
 		console.log(err);
 	} else {
-		res.json(playlists);
+		res.json(playlists[0]);
 	}
 	});
 
+});
+
+app.get("/listapi/:id",function(req,res){
+	PlaylistSC.findById(req.params.id, function(err, playlists){
+	if(err){
+		console.log("ERROR!");
+		console.log(err);
+	} else {
+		console.log(req.params.id);
+		res.json(playlists);
+		console.log(playlists);
+	}
+	});
+
+});
+
+
+app.post("/listapi/:id",function(req,res){
+	console.log(req.body);
+	PlaylistSC.findByIdAndUpdate(req.params.id, function(err, playlists){
+	if(err){
+		console.log("ERROR!");
+		console.log(err);
+	} else {
+		// console.log(req.params.id);
+		playlists=req.body;
+		res.json(playlists);
+	// 	console.log(playlists);
+	}
+	});
 });
 
 
