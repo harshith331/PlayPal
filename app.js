@@ -316,25 +316,6 @@ app.get("/listapi",function(req,res){
 
 });
 
-// app.delete("/playlist/:ida/:idb",function(req,res){
-// 	console.log("------------------------");
-// 	console.log(req.params.ida,req.params.idb);
-// 	PlaylistSC.findById(req.params.ida,function(err,found){
-// 	if(err){
-// 			console.log(err);
-// 		}
-// 		else{
-// 			console.log(found["playlist"]);
-// 			var foundlist=found["playlist"];
-// 			foundlist.findById(req.params.idb,function(err,found2){
-// 				console.log(found2);
-				
-// 			})
-// 		}
-// 	});
-// 	res.redirect("/playlist/"+req.params.ida);
-	
-// });
 
 app.post("/back",function(req,res){
 	Song.deleteMany({}, function (err) {
