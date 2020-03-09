@@ -289,6 +289,41 @@ app.delete("/playlist/:id",function(req,res){
 	});
 });
 
+app.post("/delsong/:ida/:idb",function(req,res){
+	var ida= req.params.ida;
+	var idb= req.params.idb;
+	console.log("-----------------------------------------------------------------------1")
+		PlaylistSC.findById(req.params.ida,function(err,foundPly){
+			console.log("-----------------------------------------------------------------------2")
+		if(err){
+			console.log(err);
+		}
+		else{
+			console.log(foundPly);
+				foundPly.playlist.forEach(function(song){
+					console.log("-----------------------------------------------------------------------3")
+					if(song._id==req.params.idb){
+						console.log(song);
+						var idToRemove=req.params.idb;
+						var newplay=foundPly.playlist.filter((item) => item.id !== idToRemove);
+						console.log(newplay);
+						PlaylistSC.findById(req.params.ida, function(err, result){
+							if(err){
+								res.send(err)
+							}
+							else{
+								result.playlist=newplay;
+								result.save();
+								console.log(result);
+								return res.render("song_view",{Playlist: foundPly,play:result.playlist[0]["audio"]});
+							}
+						});
+					}
+					
+				});
+		}
+	});
+});
 
 app.get("/listapi",function(req,res){
 	PlaylistSC.find({}, function(err, playlists){
